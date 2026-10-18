@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gleamvox.com/sitemap.xml
