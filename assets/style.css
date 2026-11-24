@@ -33,5 +33,13 @@ details.lang li a:hover,details.lang li a[aria-current]{background:var(--line)}
 main.doc{padding:32px 0 48px}main.doc h1{font-size:32px;margin:0 0 4px}
 main.doc .upd{color:var(--muted);margin:0 0 24px;font-size:15px}
 main.doc p,main.doc li{margin:0 0 14px}
+main.doc ul,main.doc ol{margin:0 0 14px;padding-inline-start:24px}main.doc li{margin:0 0 6px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:24px 0}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
+.plan .price{font-size:38px;font-weight:700;line-height:1.1}.plan .per{color:var(--muted);margin:2px 0 8px}.plan .pn{color:var(--muted);font-size:15px;margin:0}
+.trial{background:var(--card);border:1px solid var(--gold);border-radius:14px;padding:14px 18px;margin:0 0 24px}
+.soon-line{font-weight:700;margin:24px 0}
+.prices{margin:28px 0;text-align:center}.prices h2{font-size:22px;margin:0 0 6px}.prices p{color:var(--muted);margin:0 0 12px}
+.alt{color:var(--muted);font-size:14px}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding:20px 0 32px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:6px 20px}footer a{color:var(--muted)}
