@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27;; connect-src https://api.gleamvox.com; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Gleamvox account — Gleamvox</title>
+<meta name="description" content="Sign in to see your Gleamvox AI subscription, your devices, to subscribe or to delete the account.">
+<link rel="canonical" href="https://gleamvox.com/ar/account/">
+<link rel="alternate" hreflang="en" href="https://gleamvox.com/account/">
+<link rel="alternate" hreflang="ru" href="https://gleamvox.com/ru/account/">
+<link rel="alternate" hreflang="es" href="https://gleamvox.com/es/account/">
+<link rel="alternate" hreflang="pt" href="https://gleamvox.com/pt/account/">
+<link rel="alternate" hreflang="fr" href="https://gleamvox.com/fr/account/">
+<link rel="alternate" hreflang="de" href="https://gleamvox.com/de/account/">
+<link rel="alternate" hreflang="tr" href="https://gleamvox.com/tr/account/">
+<link rel="alternate" hreflang="ar" href="https://gleamvox.com/ar/account/">
+<link rel="alternate" hreflang="hi" href="https://gleamvox.com/hi/account/">
+<link rel="alternate" hreflang="id" href="https://gleamvox.com/id/account/">
+<link rel="alternate" hreflang="ja" href="https://gleamvox.com/ja/account/">
+<link rel="alternate" hreflang="ko" href="https://gleamvox.com/ko/account/">
+<link rel="alternate" hreflang="zh-Hans" href="https://gleamvox.com/zh/account/">
+<link rel="alternate" hreflang="x-default" href="https://gleamvox.com/account/">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/lang.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+<a class="brand" href="/ar/"><img src="/assets/logo-192.png" width="36" height="36" alt="">Gleamvox</a>
+<nav aria-label="Gleamvox"><a href="/ar/pricing/">Pricing</a><a href="/ar/refund/">Refund policy</a><a href="/ar/privacy/">سياسة الخصوصية</a><a href="/ar/terms/">شروط الاستخدام</a><a href="/ar/support/">الدعم</a><a href="/ar/delete-data/">حذف بياناتي</a></nav>
+<details class="lang"><summary aria-label="اللغة">🌐 العربية</summary><ul><li><a href="/account/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/ru/account/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/es/account/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/pt/account/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li><li><a href="/fr/account/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/account/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/tr/account/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/ar/account/" hreflang="ar" lang="ar" data-lang="ar" aria-current="true">العربية</a></li><li><a href="/hi/account/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/id/account/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li><li><a href="/ja/account/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/account/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li><li><a href="/zh/account/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a></li></ul></details>
+</div></header>
+<main class="wrap doc" lang="en" dir="ltr" id="acc" data-api="https://api.gleamvox.com" data-site="gleamvox.com" data-lang="ar" data-pay="1">
+<h1>Your Gleamvox account</h1>
+<p id="acc-msg" class="msg" role="status" aria-live="polite"></p>
+<noscript><p>The account page needs JavaScript. You can also manage the account in the Gleamvox app or write to support@gleamvox.com.</p></noscript>
+<section id="acc-login" class="acc">
+<p>Sign in with the same account as in the app: a code to your e-mail or Google.</p>
+<form id="acc-email-form" class="row" novalidate><label for="acc-email-in">E-mail</label>
+<input id="acc-email-in" type="email" autocomplete="email" maxlength="254" required><button id="acc-send" class="btn" type="submit">Send the code</button></form>
+<form id="acc-code-form" class="row" novalidate hidden><label for="acc-code-in">Code from the e-mail</label>
+<input id="acc-code-in" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12" required><button id="acc-verify" class="btn" type="submit">Sign in</button>
+<button id="acc-email-change" class="btn2" type="button">Another e-mail</button></form>
+<p class="or">or</p>
+<p><button id="acc-google" class="btn2" type="button">Sign in with Google</button></p>
+<p class="alt">The sign-in is kept only in this tab and for one hour: nothing is saved in the browser. After closing the tab, sign in again.</p>
+</section>
+<section id="acc-view" class="acc" hidden>
+<h2>E-mail</h2><p id="acc-mail"></p>
+<h2>Gleamvox AI subscription</h2><div id="acc-status"></div>
+<div id="acc-buy" hidden><p id="acc-trial" class="alt"></p><p class="row"><button id="acc-buy-m" class="btn" type="button">Subscribe for a month — $7.99</button>
+<button id="acc-buy-y" class="btn" type="button">Subscribe for a year — $59.99</button></p>
+<p class="alt"><a href="/ar/pricing/">Pricing</a> · <a href="/ar/refund/">Refund policy</a> · <a href="/ar/terms/">شروط الاستخدام</a></p></div>
+<p id="acc-buy-closed" hidden>Subscribing on the site opens in the coming weeks.</p>
+<div id="acc-portal-box" hidden><p><button id="acc-portal" class="btn2" type="button">Manage subscription</button></p><p class="alt">Change the card, cancel, see receipts or ask for a refund: the page of our payment service Paddle opens.</p></div>
+<h2>Devices</h2><p id="acc-dev-count"></p><ul id="acc-devices" class="devs"></ul>
+<h2>Account</h2>
+<p class="row"><button id="acc-logout" class="btn2" type="button">Sign out</button><button id="acc-del" class="btn2 danger" type="button">Delete account</button></p>
+<div id="acc-del-confirm" class="warn" hidden><p>The account will be deleted for good: the subscription on the site is cancelled first, then your e-mail, devices and subscription data are erased. This cannot be undone.</p>
+<p class="row"><button id="acc-del-yes" class="btn2 danger" type="button">Yes, delete for good</button><button id="acc-del-no" class="btn2" type="button">Cancel</button></p></div>
+</section>
+<script type="application/json" id="acc-i18n">{"sending": "Sending…", "code_sent": "We sent a code to {email}. It works for a few minutes.", "signing_in": "Signing in…", "loading": "Loading…", "signed_out": "You signed out.", "deleted": "The account is deleted.", "deleted_play": "The account is deleted. If you subscribed in Google Play, cancel the subscription there too (Google Play → Payments and subscriptions).", "bad_email": "Enter a correct e-mail.", "bad_code": "Enter the code from the e-mail (digits only).", "err_code_invalid": "Wrong or expired code. Ask for a new one if needed.", "err_email_login_disabled": "Sign-in by e-mail is turned off right now. Try Google.", "err_mail_unavailable": "We could not send the e-mail right now. Try again later.", "err_rate": "Too many attempts. Wait a few minutes and try again.", "err_network": "No connection to the server. Check the Internet and try again.", "err_session": "The sign-in has expired. Sign in again.", "err_signed_out_acc": "This account was deleted. Sign in again.", "err_ticket": "Sign-in with Google did not finish. Try again.", "err_cancelled": "Sign-in with Google was cancelled.", "err_expired": "Sign-in took too long. Try again.", "err_unavailable": "Sign-in with Google is not available right now. Use a code to your e-mail.", "err_storage": "The browser blocks site data for this tab, so sign-in with Google cannot finish. Use a code to your e-mail.", "err_already_paid": "The subscription is already paid until {date}.", "err_payment_pending": "The last payment did not go through. Update the card in “Manage subscription”.", "err_pay_unavailable": "Payment is not available right now. Try again later.", "err_no_subscription": "There is no subscription on the site to manage yet.", "err_bad_link": "The server returned an unexpected address. Nothing was opened. Write to support@gleamvox.com.", "err_generic": "Something went wrong. Try again later or write to support@gleamvox.com.", "st_none": "No subscription.", "st_trial": "Free trial is on.", "st_active": "The subscription is active.", "st_access": "Gleamvox AI is on.", "st_grace": "The last payment did not go through. Gleamvox AI still works for now: update the card in “Manage subscription”.", "st_canceled": "The subscription is cancelled: Gleamvox AI works until the end of the paid period and will not renew.", "st_on_hold": "The payment did not go through, Gleamvox AI is paused. Update the card in “Manage subscription”.", "st_paused": "The subscription is paused.", "st_pending": "The payment is still being processed.", "st_expired": "The subscription has ended.", "st_revoked": "The subscription was revoked (refund or payment dispute).", "st_trial_used": "The free trial was already used on this account.", "st_region_blocked": "Gleamvox AI is not sold in your country.", "st_disabled": "This kind of subscription is turned off right now.", "until": "Works until: {date}", "renew_on": "Renews automatically. You can cancel at any time.", "plan_monthly": "Plan: monthly", "plan_yearly": "Plan: yearly", "via_play": "Bought in Google Play: manage it in Google Play.", "trial_hint": "First 7 days free, then the price of the plan. Cancel before the end of the trial and you pay nothing.", "no_trial": "The free trial was already used: the payment is taken right away.", "dev_count": "Signed in on {n} of {max} devices.", "dev_none": "No devices are signed in.", "dev_android": "Android phone", "dev_pc": "Computer", "dev_other": "Other device", "dev_added": "added {date}", "dev_seen": "last seen {date}", "dev_logout": "Sign out on it", "dev_logout_ask": "Sign out of Gleamvox on this device?", "dev_logged_out": "The device is signed out.", "opening_pay": "Opening the payment page…", "opening_portal": "Opening the Paddle page…", "deleting": "Deleting…"}</script>
+</main>
+<footer><div class="wrap"><span>© 2026 Gleamvox</span><a href="/ar/pricing/">Pricing</a><a href="/ar/refund/">Refund policy</a><a href="/ar/privacy/">سياسة الخصوصية</a><a href="/ar/terms/">شروط الاستخدام</a><a href="/ar/delete-data/">حذف بياناتي</a><a href="mailto:support@gleamvox.com">support@gleamvox.com</a><a href="https://github.com/gleamvoxAI/gleamvox" rel="noopener">الشفرة المصدرية</a></div></footer>
+<script src="/assets/account.js"></script>
+</body>
+</html>

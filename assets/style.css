@@ -41,5 +41,17 @@ main.doc ul,main.doc ol{margin:0 0 14px;padding-inline-start:24px}main.doc li{ma
 .soon-line{font-weight:700;margin:24px 0}
 .prices{margin:28px 0;text-align:center}.prices h2{font-size:22px;margin:0 0 6px}.prices p{color:var(--muted);margin:0 0 12px}
 .alt{color:var(--muted);font-size:14px}
+[hidden]{display:none!important}
+button.btn{border:0;font:inherit;font-weight:700;cursor:pointer}
+.btn2{display:inline-block;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:10px 20px;font:inherit;cursor:pointer}
+.btn2.danger{color:#c0392b;border-color:#c0392b}
+button:disabled{opacity:.6;cursor:default}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.row label{flex-basis:100%;font-weight:600}
+input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;flex:1 1 220px}
+.msg{min-height:1.6em;font-weight:600}.msg.bad{color:#c0392b}
+.or{color:var(--muted);margin:16px 0 8px}
+.warn{border:1px solid #c0392b;border-radius:14px;padding:14px 18px;margin:12px 0}
+.devs{list-style:none;padding:0}.devs li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 0;border-bottom:1px solid var(--line)}.devs li button{margin-inline-start:auto}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding:20px 0 32px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:6px 20px}footer a{color:var(--muted)}

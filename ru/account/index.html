@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27;; connect-src https://api.gleamvox.com; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кабинет Gleamvox — Gleamvox</title>
+<meta name="description" content="Войдите, чтобы увидеть подписку Gleamvox AI и устройства, оформить подписку или удалить аккаунт.">
+<link rel="canonical" href="https://gleamvox.com/ru/account/">
+<link rel="alternate" hreflang="en" href="https://gleamvox.com/account/">
+<link rel="alternate" hreflang="ru" href="https://gleamvox.com/ru/account/">
+<link rel="alternate" hreflang="es" href="https://gleamvox.com/es/account/">
+<link rel="alternate" hreflang="pt" href="https://gleamvox.com/pt/account/">
+<link rel="alternate" hreflang="fr" href="https://gleamvox.com/fr/account/">
+<link rel="alternate" hreflang="de" href="https://gleamvox.com/de/account/">
+<link rel="alternate" hreflang="tr" href="https://gleamvox.com/tr/account/">
+<link rel="alternate" hreflang="ar" href="https://gleamvox.com/ar/account/">
+<link rel="alternate" hreflang="hi" href="https://gleamvox.com/hi/account/">
+<link rel="alternate" hreflang="id" href="https://gleamvox.com/id/account/">
+<link rel="alternate" hreflang="ja" href="https://gleamvox.com/ja/account/">
+<link rel="alternate" hreflang="ko" href="https://gleamvox.com/ko/account/">
+<link rel="alternate" hreflang="zh-Hans" href="https://gleamvox.com/zh/account/">
+<link rel="alternate" hreflang="x-default" href="https://gleamvox.com/account/">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/lang.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+<a class="brand" href="/ru/"><img src="/assets/logo-192.png" width="36" height="36" alt="">Gleamvox</a>
+<nav aria-label="Gleamvox"><a href="/ru/pricing/">Цены</a><a href="/ru/refund/">Возвраты</a><a href="/ru/privacy/">Политика конфиденциальности</a><a href="/ru/terms/">Условия использования</a><a href="/ru/support/">Поддержка</a><a href="/ru/delete-data/">Удалить мои данные</a></nav>
+<details class="lang"><summary aria-label="Язык">🌐 Русский</summary><ul><li><a href="/account/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/ru/account/" hreflang="ru" lang="ru" data-lang="ru" aria-current="true">Русский</a></li><li><a href="/es/account/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/pt/account/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li><li><a href="/fr/account/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/account/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/tr/account/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/ar/account/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/account/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/id/account/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li><li><a href="/ja/account/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/account/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li><li><a href="/zh/account/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a></li></ul></details>
+</div></header>
+<main class="wrap doc" id="acc" data-api="https://api.gleamvox.com" data-site="gleamvox.com" data-lang="ru" data-pay="1">
+<h1>Кабинет Gleamvox</h1>
+<p id="acc-msg" class="msg" role="status" aria-live="polite"></p>
+<noscript><p>Для кабинета нужен JavaScript. Аккаунтом можно управлять и в приложении Gleamvox или написать на support@gleamvox.com.</p></noscript>
+<section id="acc-login" class="acc">
+<p>Войдите тем же аккаунтом, что и в приложении: кодом на почту или через Google.</p>
+<form id="acc-email-form" class="row" novalidate><label for="acc-email-in">Почта</label>
+<input id="acc-email-in" type="email" autocomplete="email" maxlength="254" required><button id="acc-send" class="btn" type="submit">Получить код</button></form>
+<form id="acc-code-form" class="row" novalidate hidden><label for="acc-code-in">Код из письма</label>
+<input id="acc-code-in" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12" required><button id="acc-verify" class="btn" type="submit">Войти</button>
+<button id="acc-email-change" class="btn2" type="button">Другая почта</button></form>
+<p class="or">или</p>
+<p><button id="acc-google" class="btn2" type="button">Войти через Google</button></p>
+<p class="alt">Вход держится только в этой вкладке и один час: в браузере ничего не сохраняется. Закрыли вкладку — войдите снова.</p>
+</section>
+<section id="acc-view" class="acc" hidden>
+<h2>Почта</h2><p id="acc-mail"></p>
+<h2>Подписка Gleamvox AI</h2><div id="acc-status"></div>
+<div id="acc-buy" hidden><p id="acc-trial" class="alt"></p><p class="row"><button id="acc-buy-m" class="btn" type="button">Оформить на месяц — 7,99 $</button>
+<button id="acc-buy-y" class="btn" type="button">Оформить на год — 59,99 $</button></p>
+<p class="alt"><a href="/ru/pricing/">Цены</a> · <a href="/ru/refund/">Возвраты</a> · <a href="/ru/terms/">Условия использования</a></p></div>
+<p id="acc-buy-closed" hidden>Оформление подписки на сайте откроется в ближайшие недели.</p>
+<div id="acc-portal-box" hidden><p><button id="acc-portal" class="btn2" type="button">Управлять подпиской</button></p><p class="alt">Сменить карту, отменить, посмотреть чеки или попросить возврат: откроется страница нашего платёжного сервиса Paddle.</p></div>
+<h2>Устройства</h2><p id="acc-dev-count"></p><ul id="acc-devices" class="devs"></ul>
+<h2>Аккаунт</h2>
+<p class="row"><button id="acc-logout" class="btn2" type="button">Выйти</button><button id="acc-del" class="btn2 danger" type="button">Удалить аккаунт</button></p>
+<div id="acc-del-confirm" class="warn" hidden><p>Аккаунт будет удалён навсегда: сначала отменяется подписка на сайте, затем стираются почта, устройства и данные подписки. Отменить удаление нельзя.</p>
+<p class="row"><button id="acc-del-yes" class="btn2 danger" type="button">Да, удалить навсегда</button><button id="acc-del-no" class="btn2" type="button">Отмена</button></p></div>
+</section>
+<script type="application/json" id="acc-i18n">{"sending": "Отправляем…", "code_sent": "Код отправлен на {email}. Он действует несколько минут.", "signing_in": "Входим…", "loading": "Загружаем…", "signed_out": "Вы вышли.", "deleted": "Аккаунт удалён.", "deleted_play": "Аккаунт удалён. Если вы оформляли подписку в Google Play, отмените её и там (Google Play → Платежи и подписки).", "bad_email": "Введите правильный адрес почты.", "bad_code": "Введите код из письма (только цифры).", "err_code_invalid": "Код неверный или устарел. При необходимости запросите новый.", "err_email_login_disabled": "Вход по почте сейчас выключен. Попробуйте Google.", "err_mail_unavailable": "Сейчас не удалось отправить письмо. Попробуйте позже.", "err_rate": "Слишком много попыток. Подождите несколько минут и повторите.", "err_network": "Нет связи с сервером. Проверьте интернет и повторите.", "err_session": "Вход истёк. Войдите снова.", "err_signed_out_acc": "Этот аккаунт удалён. Войдите снова.", "err_ticket": "Вход через Google не завершился. Попробуйте ещё раз.", "err_cancelled": "Вход через Google отменён.", "err_expired": "Вход занял слишком много времени. Попробуйте ещё раз.", "err_unavailable": "Вход через Google сейчас недоступен. Войдите кодом на почту.", "err_storage": "Браузер запрещает этой вкладке хранить данные сайта, поэтому вход через Google не завершится. Войдите кодом на почту.", "err_already_paid": "Подписка уже оплачена до {date}.", "err_payment_pending": "Последний платёж не прошёл. Обновите карту в «Управлять подпиской».", "err_pay_unavailable": "Оплата сейчас недоступна. Попробуйте позже.", "err_no_subscription": "Подписки на сайте пока нет — управлять нечем.", "err_bad_link": "Сервер вернул неожиданный адрес. Ничего не открыто. Напишите на support@gleamvox.com.", "err_generic": "Что-то пошло не так. Попробуйте позже или напишите на support@gleamvox.com.", "st_none": "Подписки нет.", "st_trial": "Идёт бесплатный пробный период.", "st_active": "Подписка действует.", "st_access": "Gleamvox AI включён.", "st_grace": "Последний платёж не прошёл. Gleamvox AI пока работает: обновите карту в «Управлять подпиской».", "st_canceled": "Подписка отменена: Gleamvox AI работает до конца оплаченного срока и не продлится.", "st_on_hold": "Платёж не прошёл, Gleamvox AI приостановлен. Обновите карту в «Управлять подпиской».", "st_paused": "Подписка приостановлена.", "st_pending": "Платёж ещё обрабатывается.", "st_expired": "Подписка закончилась.", "st_revoked": "Подписка отозвана (возврат денег или спор по платежу).", "st_trial_used": "Пробный период на этом аккаунте уже использован.", "st_region_blocked": "В вашей стране Gleamvox AI не продаётся.", "st_disabled": "Этот вид подписки сейчас выключен.", "until": "Действует до: {date}", "renew_on": "Продлевается автоматически. Отменить можно в любой момент.", "plan_monthly": "План: на месяц", "plan_yearly": "План: на год", "via_play": "Оформлена в Google Play: управлять ею — в Google Play.", "trial_hint": "Первые 7 дней бесплатно, потом цена плана. Отмените до конца пробного — ничего не спишется.", "no_trial": "Пробный период уже использован: оплата списывается сразу.", "dev_count": "Вход выполнен на {n} из {max} устройств.", "dev_none": "Ни на одном устройстве вход не выполнен.", "dev_android": "Телефон Android", "dev_pc": "Компьютер", "dev_other": "Другое устройство", "dev_added": "добавлено {date}", "dev_seen": "последний раз {date}", "dev_logout": "Выйти на нём", "dev_logout_ask": "Выйти из Gleamvox на этом устройстве?", "dev_logged_out": "На устройстве выполнен выход.", "opening_pay": "Открываем страницу оплаты…", "opening_portal": "Открываем страницу Paddle…", "deleting": "Удаляем…"}</script>
+</main>
+<footer><div class="wrap"><span>© 2026 Gleamvox</span><a href="/ru/pricing/">Цены</a><a href="/ru/refund/">Возвраты</a><a href="/ru/privacy/">Политика конфиденциальности</a><a href="/ru/terms/">Условия использования</a><a href="/ru/delete-data/">Удалить мои данные</a><a href="mailto:support@gleamvox.com">support@gleamvox.com</a><a href="https://github.com/gleamvoxAI/gleamvox" rel="noopener">Исходный код</a></div></footer>
+<script src="/assets/account.js"></script>
+</body>
+</html>
