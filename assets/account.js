@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // web-pay-7: the account page gleamvox.com/account/ (WEB_PAY.md section 5, variant 2). Talks to api.gleamvox.com (routes:
-// server/README.md, "Кабинет на сайте"). Rules: the web pass lives ONLY in a variable of this script (no local storage, no
-// cookie, no sessionStorage) and goes only in the Authorization header; the Google ticket is removed from the address bar
-// before anything else; answers of the server are put on the page only with textContent (never as HTML).
-// sessionStorage holds only the PKCE verifier and the language page while the browser is away at Google; both are deleted
+// server/README.md, "Кабинет на сайте"). Rules: the web pass goes only in the Authorization header; the Google ticket is
+// removed from the address bar before anything else; answers of the server are put on the page only with textContent.
+// web-session-1 (owner decision 25.11, variant B, WEB_PAY.md 5б): the pass and its end are kept in sessionStorage of THIS
+// tab (never the local storage, never a cookie), so the sign-in survives a reload and a visit to /pay/ or another page of the
+// site; the end stays at most 1 hour from the sign-in (no extension). A kept pass is checked (form, end) before use; a
+// broken or expired one is deleted. Sign out, deleting the account, 401 and the end of the hour delete it at once.
+// sessionStorage also holds the PKCE verifier and the language page while the browser is away at Google; both are deleted
 // as soon as the browser comes back. "Sign out" also revokes the pass on the server (web-logout-1, WEB_PAY.md 5a).
 (function (root) {
   'use strict';
@@ -12,6 +15,17 @@
   var ACCOUNT_PATH = /^\/(?:[a-z]{2}\/)?account\/$/;
   var LOGIN_ERRORS = ['cancelled', 'expired', 'failed', 'unavailable'];
   var VKEY = 'gv_acc_v', RKEY = 'gv_acc_ret';
+  // the kept pass: PKEY = the pass, EKEY = its end (unix seconds). lang.js reads only EKEY (header "Account" on every page).
+  var PKEY = 'gv_web_pass', EKEY = 'gv_web_exp', LIFE = 3600, MARGIN = 30;
+
+  // a kept pass is taken only with the right form and an end that is more than MARGIN s and at most LIFE (+60 s for
+  // clocks) away from now; else null (then it is deleted)
+  function keptPass(p, e, now) {
+    if (typeof p !== 'string' || p.length > 4096 || !PASS.test(p)) return null;
+    if (typeof e !== 'string' || !/^[0-9]{1,12}$/.test(e)) return null;
+    var exp = Number(e), left = exp - now;
+    return left > MARGIN && left <= LIFE + 60 ? { pass: p, exp: exp } : null;
+  }
 
   // '#ticket=…' / '#error=…' -> {ticket} / {error}; nothing -> null. A broken or repeated value is a failed sign-in.
   function parseHash(hash) {
@@ -88,9 +102,41 @@
     var LANG = main.getAttribute('data-lang') || 'en', PAY_OPEN = main.getAttribute('data-pay') === '1';
     var T = JSON.parse(doc.getElementById('acc-i18n').textContent);
     var $ = function (id) { return doc.getElementById(id); };
-    var S = { pass: null, exp: 0, timer: null, busy: false, email: '' };   // the web pass: here and nowhere else
+    var S = { pass: null, exp: 0, timer: null, busy: false, email: '' };   // the web pass: here and in sessionStorage of this tab
 
     function store() { try { return win.sessionStorage; } catch (e) { return null; } }
+    function nowSec() { return Math.floor(Date.now() / 1000); }
+    // the header shows "Account" instead of "Sign in" while <html data-gv-in> is set (lang.js sets it on the other pages)
+    function mark(on) {
+      var D = doc.documentElement;
+      if (!D) return;
+      if (on) D.setAttribute('data-gv-in', ''); else D.removeAttribute('data-gv-in');
+    }
+    // the end first and removed first: lang.js trusts the end only while account.js keeps the pass next to it.
+    // forget(p): only if the kept pass is p (or none): another page of this tab may have signed in again since (back button);
+    // its new pass must stay. Returns false when a different pass was left in place.
+    function forget(only) {
+      var st = store();
+      try {
+        if (!st) return true;
+        var cur = st.getItem(PKEY);
+        if (only && cur !== null && cur !== only) return false;
+        st.removeItem(EKEY); st.removeItem(PKEY);
+      } catch (e) { /* blocked */ }
+      return true;
+    }
+    function keep(p, exp) {
+      var st = store();
+      try { if (st) { st.setItem(PKEY, p); st.setItem(EKEY, String(exp)); } } catch (e) { forget(); }  // full or blocked: memory only
+    }
+    function loadKept() {
+      var st = store(), p = null, e = null;
+      try { if (st) { p = st.getItem(PKEY); e = st.getItem(EKEY); } } catch (x) { return null; }
+      if (p === null && e === null) return null;
+      var k = keptPass(p, e, nowSec());
+      if (!k) forget();
+      return k;
+    }
     function fmt(sec) {
       try { return new Date(sec * 1000).toLocaleDateString(LANG, { year: 'numeric', month: 'long', day: 'numeric' }); }
       catch (e) { return new Date(sec * 1000).toISOString().slice(0, 10); }
@@ -138,7 +184,9 @@
     }
 
     function signOut(msg, bad) {
+      var gone = S.pass;
       S.pass = null; S.exp = 0; S.email = '';
+      if (forget(gone)) mark(false);
       if (S.timer) { win.clearTimeout(S.timer); S.timer = null; }
       clearNode($('acc-devices'));
       ['acc-mail', 'acc-status', 'acc-dev-count'].forEach(function (id) { $(id).textContent = ''; });
@@ -150,17 +198,24 @@
     function gotPass(r) {
       var p = r.data.pass;
       if (!r.ok || typeof p !== 'string' || p.length > 4096 || !PASS.test(p)) { say(r.ok ? T.err_generic : errText(r), true); return; }
-      S.pass = p;
-      S.exp = typeof r.data.expiresAt === 'number' ? r.data.expiresAt : 0;
-      if (S.exp) {
-        var ms = Math.max(0, S.exp * 1000 - Date.now() - 30000);
-        S.timer = win.setTimeout(function () { signOut(T.err_session); }, Math.min(ms, 2147483647));  // timer limit of browsers
-      }
-      show('acc-login', false); show('acc-view', true);
+      // the end from the server, but never later than 1 hour from now (the server gives exactly 1 hour)
+      var now = nowSec(), exp = r.data.expiresAt;
+      exp = typeof exp === 'number' && isFinite(exp) && exp > 0 ? Math.min(Math.floor(exp), now + LIFE) : now + LIFE;
+      enter(p, exp);
       $('acc-email-in').value = ''; $('acc-code-in').value = '';
       say('');
       if (r.data.account) render(r.data.account);
       loadAll();
+    }
+
+    // signed in: with a new pass (gotPass) or with the one kept in this tab (page load)
+    function enter(p, exp) {
+      S.pass = p; S.exp = exp;
+      keep(p, exp); mark(true);
+      if (S.timer) win.clearTimeout(S.timer);
+      var ms = Math.max(0, exp * 1000 - Date.now() - MARGIN * 1000);
+      S.timer = win.setTimeout(function () { signOut(T.err_session); }, Math.min(ms, 2147483647));  // timer limit of browsers
+      show('acc-login', false); show('acc-view', true);
     }
 
     function render(acc) {
@@ -209,11 +264,23 @@
       });
     }
 
-    function loadAll() {
+    // back from the payment page (?paid=1): the webhook may be late, so the status is asked again (5 times, every 3 s)
+    var WAIT = /[?&]paid=1(&|$)/.test(String(win.location && win.location.search || '')) ? 5 : 0, waiting = false;
+    function loadAccount() {
       call('GET', '/v1/account').then(function (r) {
         if (r.handled) return;
-        if (r.ok) render(r.data); else say(errText(r), true);
+        if (r.ok) {
+          render(r.data);
+          if (WAIT > 0 && !hasSiteSub(r.data)) {
+            WAIT -= 1; waiting = true; say(T.wait_pay);
+            win.setTimeout(function () { if (S.pass) loadAccount(); }, 3000);
+          } else if (waiting) { waiting = false; WAIT = 0; say(''); }
+        } else { WAIT = 0; waiting = false; say(errText(r), true); }
       });
+    }
+
+    function loadAll() {
+      loadAccount();
       call('GET', '/v1/devices').then(function (r) {
         if (r.handled) return;
         if (r.ok && Array.isArray(r.data.devices)) renderDevices(r.data.devices); else if (!r.ok) say(errText(r), true);
@@ -332,6 +399,17 @@
       });
     });
 
+    // the back button may bring this page back from the browser cache with an old pass in memory, while another page of the
+    // tab has signed out or in since: then the page is loaded anew (it takes the pass of the tab as it is now)
+    if (typeof win.addEventListener === 'function') {
+      win.addEventListener('pageshow', function (ev) {
+        if (!ev || !ev.persisted) return;
+        var st = store(), cur = null;
+        try { cur = st ? st.getItem(PKEY) : null; } catch (e) { /* blocked */ }
+        if ((cur || null) !== (S.pass || null)) win.location.reload();
+      });
+    }
+
     // ---- coming back from Google: first take the ticket out of the address bar
     var back = parseHash(win.location.hash);
     if (back) {
@@ -345,14 +423,23 @@
       }
       try { win.history.replaceState(null, '', win.location.pathname + win.location.search); } catch (e) { /* old browser */ }
       try { if (st) { st.removeItem(VKEY); st.removeItem(RKEY); } } catch (e) { /* blocked */ }
+      // a new sign-in: an older kept pass of this tab is not used any more and is revoked on the server too
+      var old = loadKept();
+      forget(); mark(false);
+      if (old) revoke(old.pass);
       if (back.error) { say(T['err_' + back.error] || T.err_ticket, true); return; }
       if (!verifier) { say(T.err_ticket, true); return; }
       busy(true); say(T.signing_in);
       call('POST', '/v1/auth/web/ticket', { ticket: back.ticket, codeVerifier: verifier }).then(function (r) { busy(false); gotPass(r); });
+      return;
     }
+    // ---- no return from Google: the pass kept in this tab (a reload, back from /pay/ or from another page)
+    var kept = loadKept();
+    if (kept) { enter(kept.pass, kept.exp); loadAll(); } else mark(false);
   }
 
-  var api = { parseHash: parseHash, maskEmail: maskEmail, safeUrl: safeUrl, statusLines: statusLines, b64url: b64url, start: start };
+  var api = { parseHash: parseHash, maskEmail: maskEmail, safeUrl: safeUrl, statusLines: statusLines, b64url: b64url,
+    keptPass: keptPass, start: start };
   if (typeof root.__gvAccountTest === 'function') { root.__gvAccountTest(api); return; }
   start(root.document, root);
 })(this);

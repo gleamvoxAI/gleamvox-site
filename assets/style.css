@@ -35,6 +35,7 @@ details.lang li a:hover,details.lang li a[aria-current]{background:var(--field)}
 .btn2{background:transparent;color:var(--fg);border:1px solid var(--outline)}.btn2:hover{border-color:var(--gold);color:var(--gold)}
 .btn2.danger{color:var(--bad);border-color:var(--bad)}
 .hright .btn2{min-height:44px;font-size:16px;padding:0 20px}
+.hright .h-acc,html[data-gv-in] .hright .h-in{display:none}html[data-gv-in] .hright .h-acc{display:inline}
 button:disabled{opacity:.6;cursor:default}
 /* home */
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:72px 24px}
@@ -136,6 +137,10 @@ main.acc-page{max-width:960px;margin:0 auto;padding:48px 24px 72px}
 .login{max-width:460px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:36px 32px}
 .login h1{font-size:32px;line-height:1.15;font-weight:800;margin:0 0 12px}
 .login .sub{color:var(--fg2);margin:0 0 28px}
+.card-ok{text-align:center}.card-ok .stack{margin-top:20px}.card-ok .btn,.card-ok .btn2{width:100%}
+.ok-mark{width:72px;height:72px;margin:0 auto 16px;display:block;fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ok-mark.no{stroke:var(--muted)}
+.card-ok .sub{margin-bottom:12px}
 .gbtn{display:flex;width:100%;min-height:56px;align-items:center;justify-content:center;gap:10px;padding:0 12px;background:#FFFFFF;color:#1F1F1F;border:1px solid #747775;border-radius:14px;font:600 18px/1.2 Inter,system-ui,sans-serif;cursor:pointer}
 .gbtn img{width:20px;height:auto;flex:none}
 .gbtn:hover{box-shadow:0 0 0 3px rgba(244,197,66,.45)}
