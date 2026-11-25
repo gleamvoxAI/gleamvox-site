@@ -26,8 +26,8 @@
 <link rel="alternate" hreflang="x-default" href="https://gleamvox.com/pay/">
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css">
-<script src="/assets/lang.js"></script>
+<link rel="stylesheet" href="/assets/style.css?v=7dd555453e">
+<script src="/assets/lang.js?v=157cbd5000"></script>
 </head>
 <body>
 <header><div class="wrap">
@@ -36,12 +36,15 @@
 <div class="hright"><details class="lang"><summary aria-label="Язык"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Русский</summary><ul><li><a href="/pay/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/ru/pay/" hreflang="ru" lang="ru" data-lang="ru" aria-current="true">Русский</a></li><li><a href="/es/pay/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/pt/pay/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li><li><a href="/fr/pay/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/pay/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/tr/pay/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/ar/pay/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/pay/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/id/pay/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li><li><a href="/ja/pay/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/pay/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li><li><a href="/zh/pay/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a></li></ul></details>
 <a class="btn2" href="/ru/account/">Войти</a></div>
 </div></header>
-<main class="wrap doc" id="pay" data-token="test_fa3ecf6873a0d3db601048636fd" data-env="sandbox" data-lang="ru">
-<h1>Оплата</h1>
-<p>На этой странице открывается форма оплаты нашего платёжного сервиса Paddle.</p>
-<p id="pay-msg" class="msg" role="status" aria-live="polite"></p>
-<noscript><p>Для формы оплаты нужен JavaScript.</p></noscript>
-<p><a id="pay-back" href="/ru/account/" hidden>Вернуться в кабинет</a></p>
+<main class="acc-page" id="pay" data-token="test_fa3ecf6873a0d3db601048636fd" data-env="sandbox" data-lang="ru">
+<section class="login" aria-labelledby="pay-h">
+<h1 id="pay-h">Оплата</h1>
+<p class="sub">На этой странице открывается форма оплаты нашего платёжного сервиса Paddle.</p>
+<p id="pay-msg" class="msg box" role="status"></p>
+<p id="pay-err" class="msg box bad" role="alert"></p>
+<noscript><p class="msg box">Для формы оплаты нужен JavaScript.</p></noscript>
+<a id="pay-back" class="btn2 wide" href="/ru/account/" hidden>Вернуться в кабинет</a>
+</section>
 <script type="application/json" id="pay-i18n">{"closed": "Оплата на сайте ещё не открыта. Сама клавиатура бесплатна; подписку Gleamvox AI можно будет оформить здесь в ближайшее время.", "no_txn": "Эта страница открывает оплату, начатую в кабинете. Перейдите в кабинет и выберите план.", "no_script": "Форма оплаты не загрузилась. Выключите блокировщик для этой страницы или попробуйте другой браузер.", "opening": "Открываем форму оплаты…", "failed": "Форма оплаты не открылась. Попробуйте ещё раз из кабинета.", "closed_form": "Форма оплаты закрыта. Начать заново можно из кабинета.", "done": "Спасибо! Оплата прошла. Подписка появится в кабинете и в приложении в течение минуты."}</script>
 </main>
 <footer><div class="wrap">
@@ -50,6 +53,6 @@
 <div><h2>Документы</h2><ul><li><a href="/ru/privacy/">Политика конфиденциальности</a></li><li><a href="/ru/terms/">Условия использования</a></li><li><a href="/ru/refund/">Возвраты</a></li><li><a href="/ru/delete-data/">Удалить мои данные</a></li></ul></div>
 </div></footer>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script src="/assets/pay.js"></script>
+<script src="/assets/pay.js?v=9c4dfa2348"></script>
 </body>
 </html>

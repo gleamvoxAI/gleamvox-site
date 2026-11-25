@@ -20,8 +20,9 @@
     if (!main) return;
     var T = JSON.parse(doc.getElementById('pay-i18n').textContent);
     var token = main.getAttribute('data-token') || '', env = main.getAttribute('data-env'), lang = main.getAttribute('data-lang');
-    var msg = doc.getElementById('pay-msg'), backLink = doc.getElementById('pay-back');
-    function say(k, bad) { msg.textContent = T[k]; msg.className = bad ? 'msg bad' : 'msg'; }
+    var msg = doc.getElementById('pay-msg'), err = doc.getElementById('pay-err'), backLink = doc.getElementById('pay-back');
+    // progress and success -> #pay-msg (role=status), errors -> #pay-err (role=alert); the other one is emptied
+    function say(k, bad) { msg.textContent = bad ? '' : T[k]; err.textContent = bad ? T[k] : ''; }
     if (!token) { say('closed'); return; }
     var txn = parseTxn(win.location.search);
     if (!txn) { say('no_txn'); backLink.hidden = false; return; }

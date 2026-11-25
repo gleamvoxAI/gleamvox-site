@@ -4,7 +4,7 @@
 // cookie, no sessionStorage) and goes only in the Authorization header; the Google ticket is removed from the address bar
 // before anything else; answers of the server are put on the page only with textContent (never as HTML).
 // sessionStorage holds only the PKCE verifier and the language page while the browser is away at Google; both are deleted
-// as soon as the browser comes back.
+// as soon as the browser comes back. "Sign out" also revokes the pass on the server (web-logout-1, WEB_PAY.md 5a).
 (function (root) {
   'use strict';
   var TICKET = /^[A-Za-z0-9_-]{43}$/;
@@ -95,7 +95,8 @@
       try { return new Date(sec * 1000).toLocaleDateString(LANG, { year: 'numeric', month: 'long', day: 'numeric' }); }
       catch (e) { return new Date(sec * 1000).toISOString().slice(0, 10); }
     }
-    function say(text, bad) { var m = $('acc-msg'); m.textContent = text || ''; m.className = bad ? 'msg bad' : 'msg'; }
+    // progress and plain notes go to #acc-msg (role=status), errors to #acc-err (role=alert); the other one is emptied
+    function say(text, bad) { $('acc-msg').textContent = bad ? '' : (text || ''); $('acc-err').textContent = bad ? (text || '') : ''; }
     function show(id, on) { $(id).hidden = !on; }
     function clearNode(n) { while (n.firstChild) n.removeChild(n.firstChild); }
 
@@ -121,7 +122,8 @@
           var res = { status: r.status, ok: r.ok, data: j && typeof j === 'object' ? j : {} };
           if (r.status === 401 && sent) {   // the pass expired, broke or the account was deleted
             // two requests can come back with 401 together: only the first one signs out and speaks
-            if (S.pass === sent) signOut(res.data.error === 'signed_out' ? T.err_signed_out_acc : T.err_session, true);
+            // the end of a sign-in is a plain note (role=status); a deleted account stays an error
+            if (S.pass === sent) { if (res.data.error === 'signed_out') signOut(T.err_signed_out_acc, true); else signOut(T.err_session); }
             res.handled = true;
           }
           return res;
@@ -152,7 +154,7 @@
       S.exp = typeof r.data.expiresAt === 'number' ? r.data.expiresAt : 0;
       if (S.exp) {
         var ms = Math.max(0, S.exp * 1000 - Date.now() - 30000);
-        S.timer = win.setTimeout(function () { signOut(T.err_session, true); }, Math.min(ms, 2147483647));  // timer limit of browsers
+        S.timer = win.setTimeout(function () { signOut(T.err_session); }, Math.min(ms, 2147483647));  // timer limit of browsers
       }
       show('acc-login', false); show('acc-view', true);
       $('acc-email-in').value = ''; $('acc-code-in').value = '';
@@ -227,7 +229,18 @@
       win.location.assign(u);
     }
 
-    // ---- sign-in with a code to the e-mail
+    // ---- sign-in with a code to the e-mail: the block opens on "Sign in with e-mail" (Google is the main way, site-design-2)
+    function emailBox(on) {
+      show('acc-email-box', on);
+      $('acc-email-toggle').setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    $('acc-email-toggle').addEventListener('click', function () {
+      // waiting for the code: the block never closes (the code field must stay on the page); the button only brings it back to focus
+      var waiting = !$('acc-code-form').hidden;
+      var on = waiting || $('acc-email-box').hidden;
+      emailBox(on);
+      if (on) { try { $(waiting ? 'acc-code-in' : 'acc-email-in').focus(); } catch (e) { /* no focus in tests */ } }
+    });
     $('acc-email-form').addEventListener('submit', function (ev) {
       ev.preventDefault();
       if (S.busy) return;
@@ -238,6 +251,7 @@
         busy(false);
         if (!r.ok) { say(errText(r), true); return; }
         S.email = email;
+        emailBox(true);   // waiting for the code: the e-mail block stays open
         show('acc-email-form', false); show('acc-code-form', true);
         say(fill(T.code_sent, { email: email }));
         try { $('acc-code-in').focus(); } catch (e) { /* no focus in tests */ }
@@ -284,7 +298,26 @@
       busy(true); say(T.opening_portal);
       call('GET', '/v1/pay/portal').then(function (r) { busy(false); open(r, 'portal', T.opening_portal); });
     });
-    $('acc-logout').addEventListener('click', function () { signOut(T.signed_out); });
+    // web-logout-1: "Sign out" forgets the pass at once, then asks the server to revoke it (POST /v1/auth/web/logout),
+    // so a copy of the pass stops working before its hour is over. The page never waits for the answer.
+    // keepalive lets the request finish even if the tab is closed right away; one more try without keepalive if the
+    // first one fails (network, or a browser that refuses keepalive with a preflight) or the server answers 5xx.
+    // The server answers a repeat with 200, so two tries are safe. If both fail, the pass still ends within the hour.
+    function revoke(p) {
+      function send(keep) {
+        var o = { method: 'POST', headers: { Authorization: 'Bearer ' + p }, credentials: 'omit', cache: 'no-store',
+          redirect: 'error', referrerPolicy: 'no-referrer' };
+        if (keep) o.keepalive = true;
+        try { return win.fetch(API + '/v1/auth/web/logout', o); } catch (e) { return Promise.reject(e); }
+      }
+      send(true).then(function (r) { if (r.status >= 500) return send(false); }, function () { return send(false); })
+        .catch(function () {});
+    }
+    $('acc-logout').addEventListener('click', function () {
+      var p = S.pass;
+      signOut(T.signed_out);
+      if (p) revoke(p);
+    });
     $('acc-del').addEventListener('click', function () { show('acc-del-confirm', true); });
     $('acc-del-no').addEventListener('click', function () { show('acc-del-confirm', false); });
     $('acc-del-yes').addEventListener('click', function () {

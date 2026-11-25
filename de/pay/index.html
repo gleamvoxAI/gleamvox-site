@@ -26,8 +26,8 @@
 <link rel="alternate" hreflang="x-default" href="https://gleamvox.com/pay/">
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css">
-<script src="/assets/lang.js"></script>
+<link rel="stylesheet" href="/assets/style.css?v=7dd555453e">
+<script src="/assets/lang.js?v=157cbd5000"></script>
 </head>
 <body>
 <header><div class="wrap">
@@ -36,12 +36,15 @@
 <div class="hright"><details class="lang"><summary aria-label="Sprache"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Deutsch</summary><ul><li><a href="/pay/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/ru/pay/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/es/pay/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/pt/pay/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li><li><a href="/fr/pay/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/pay/" hreflang="de" lang="de" data-lang="de" aria-current="true">Deutsch</a></li><li><a href="/tr/pay/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/ar/pay/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/pay/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/id/pay/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li><li><a href="/ja/pay/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/pay/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li><li><a href="/zh/pay/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a></li></ul></details>
 <a class="btn2" href="/de/account/"><span lang="en" dir="ltr">Sign in</span></a></div>
 </div></header>
-<main class="wrap doc" lang="en" dir="ltr" id="pay" data-token="test_fa3ecf6873a0d3db601048636fd" data-env="sandbox" data-lang="de">
-<h1>Payment</h1>
-<p>The payment form of our payment service Paddle opens on this page.</p>
-<p id="pay-msg" class="msg" role="status" aria-live="polite"></p>
-<noscript><p>The payment form needs JavaScript.</p></noscript>
-<p><a id="pay-back" href="/de/account/" hidden>Back to your account</a></p>
+<main class="acc-page" lang="en" dir="ltr" id="pay" data-token="test_fa3ecf6873a0d3db601048636fd" data-env="sandbox" data-lang="de">
+<section class="login" aria-labelledby="pay-h">
+<h1 id="pay-h">Payment</h1>
+<p class="sub">The payment form of our payment service Paddle opens on this page.</p>
+<p id="pay-msg" class="msg box" role="status"></p>
+<p id="pay-err" class="msg box bad" role="alert"></p>
+<noscript><p class="msg box">The payment form needs JavaScript.</p></noscript>
+<a id="pay-back" class="btn2 wide" href="/de/account/" hidden>Back to your account</a>
+</section>
 <script type="application/json" id="pay-i18n">{"closed": "Payment on the site is not open yet. The keyboard itself is free; the Gleamvox AI subscription will be available here soon.", "no_txn": "This page opens a payment started from your account. Go to your account and choose a plan.", "no_script": "The payment form did not load. Turn off the blocker for this page or try another browser.", "opening": "Opening the payment form…", "failed": "The payment form could not open. Try again from your account.", "closed_form": "The payment form is closed. You can start again from your account.", "done": "Thank you! The payment went through. The subscription appears in your account and in the app within a minute."}</script>
 </main>
 <footer><div class="wrap">
@@ -50,6 +53,6 @@
 <div><h2><span lang="en" dir="ltr">Documents</span></h2><ul><li><a href="/de/privacy/">Datenschutzerklärung</a></li><li><a href="/de/terms/">Nutzungsbedingungen</a></li><li><a href="/de/refund/"><span lang="en" dir="ltr">Refund policy</span></a></li><li><a href="/de/delete-data/">Meine Daten löschen</a></li></ul></div>
 </div></footer>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script src="/assets/pay.js"></script>
+<script src="/assets/pay.js?v=9c4dfa2348"></script>
 </body>
 </html>
